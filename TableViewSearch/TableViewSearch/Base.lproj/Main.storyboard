@@ -23,6 +23,9 @@
                                 <state key="normal" title="Button">
                                     <imageReference key="image" image="magnifyingglass" catalog="system" symbolScale="large"/>
                                 </state>
+                                <connections>
+                                    <action selector="btnSearch:" destination="BYZ-38-t0r" eventType="touchUpInside" id="R0g-kQ-D59"/>
+                                </connections>
                             </button>
                             <textField opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="248" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="jPV-UJ-Wbv">
                                 <rect key="frame" x="16" y="160" width="299" height="34"/>
@@ -32,39 +35,16 @@
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                 <textInputTraits key="textInputTraits"/>
                             </textField>
-                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="-1" estimatedSectionHeaderHeight="-1" sectionFooterHeight="-1" estimatedSectionFooterHeight="-1" translatesAutoresizingMaskIntoConstraints="NO" id="doR-cO-yRr">
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="grouped" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="18" estimatedSectionHeaderHeight="-1" sectionFooterHeight="18" estimatedSectionFooterHeight="-1" translatesAutoresizingMaskIntoConstraints="NO" id="doR-cO-yRr">
                                 <rect key="frame" x="16" y="202" width="361" height="605"/>
                                 <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                                 <prototypes>
-                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="myCell" rowHeight="44" id="dtJ-cj-uT6">
-                                        <rect key="frame" x="0.0" y="50" width="361" height="44"/>
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="myCell" rowHeight="44" id="dtJ-cj-uT6" customClass="TableViewCell" customModule="TableViewSearch" customModuleProvider="target">
+                                        <rect key="frame" x="0.0" y="55.333332061767578" width="361" height="44"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="dtJ-cj-uT6" id="gzE-wy-tS7">
                                             <rect key="frame" x="0.0" y="0.0" width="361" height="44"/>
                                             <autoresizingMask key="autoresizingMask"/>
-                                            <subviews>
-                                                <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="CS6-Ti-2IJ">
-                                                    <rect key="frame" x="0.0" y="0.0" width="71" height="44"/>
-                                                    <constraints>
-                                                        <constraint firstAttribute="width" constant="71" id="Zcn-yt-A8h"/>
-                                                    </constraints>
-                                                </imageView>
-                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="gV6-gV-49G">
-                                                    <rect key="frame" x="94" y="11" width="247" height="22"/>
-                                                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                                    <nil key="textColor"/>
-                                                    <nil key="highlightedColor"/>
-                                                </label>
-                                            </subviews>
-                                            <constraints>
-                                                <constraint firstItem="CS6-Ti-2IJ" firstAttribute="top" secondItem="gzE-wy-tS7" secondAttribute="topMargin" constant="-11" id="8fB-0J-GBK"/>
-                                                <constraint firstItem="gV6-gV-49G" firstAttribute="top" secondItem="gzE-wy-tS7" secondAttribute="topMargin" id="E44-hk-PmJ"/>
-                                                <constraint firstItem="CS6-Ti-2IJ" firstAttribute="centerY" secondItem="gzE-wy-tS7" secondAttribute="centerY" id="HSD-ct-vAL"/>
-                                                <constraint firstItem="gV6-gV-49G" firstAttribute="bottom" secondItem="gzE-wy-tS7" secondAttribute="bottomMargin" id="SSI-aD-lC6"/>
-                                                <constraint firstItem="CS6-Ti-2IJ" firstAttribute="leading" secondItem="gzE-wy-tS7" secondAttribute="leadingMargin" constant="-20" id="SXu-cE-aS8"/>
-                                                <constraint firstItem="gV6-gV-49G" firstAttribute="trailing" secondItem="gzE-wy-tS7" secondAttribute="trailingMargin" id="g3v-UF-3OS"/>
-                                                <constraint firstItem="gV6-gV-49G" firstAttribute="leading" secondItem="CS6-Ti-2IJ" secondAttribute="trailing" constant="23" id="zYJ-2p-GFE"/>
-                                            </constraints>
                                         </tableViewCellContentView>
                                     </tableViewCell>
                                 </prototypes>
@@ -79,6 +59,9 @@
                                 <rect key="frame" x="323" y="75" width="47" height="35"/>
                                 <state key="normal" title="Button"/>
                                 <buttonConfiguration key="configuration" style="plain" image="plus" catalog="system"/>
+                                <connections>
+                                    <action selector="btnInsert:" destination="BYZ-38-t0r" eventType="touchUpInside" id="FTU-t2-zct"/>
+                                </connections>
                             </button>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
@@ -109,6 +92,10 @@
                         <barButtonItem key="rightBarButtonItem" systemItem="add" id="VU0-yp-g3u"/>
                     </navigationItem>
                     <simulatedToolbarMetrics key="simulatedBottomBarMetrics"/>
+                    <connections>
+                        <outlet property="tfWhat" destination="jPV-UJ-Wbv" id="uIx-zL-VwY"/>
+                        <outlet property="tvViewList" destination="doR-cO-yRr" id="Nb8-If-1Ok"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
             </objects>
