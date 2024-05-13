@@ -16,7 +16,9 @@ class ViewController: UIViewController {
     var ListData: [SaveData] = []
     override func viewDidLoad() {
         super.viewDidLoad()
-
+        tvViewList.delegate = self
+        tvViewList.dataSource = self
+            
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -28,7 +30,7 @@ class ViewController: UIViewController {
          ListData.removeAll()
          todoListDB.delegate = self
          todoListDB.queryDB()
-        
+         
          tvViewList.reloadData()
        
      }
@@ -40,8 +42,26 @@ class ViewController: UIViewController {
     }
     
     @IBAction func btnSearch(_ sender: UIButton) {
-        
+        Gosearch()
     }
+    
+    func  Gosearch(){
+      
+        let todolist = TodoListDB()
+        if tfWhat.text!.isEmpty{
+            readValue()
+        }else{
+            ListData.removeAll()
+            todolist.delegate = self
+            
+           todolist.findkeyword(what: tfWhat.text!)
+            tvViewList.reloadData()
+        }
+    }
+    
+    
+    
+    
     
    func GoInsert(){
         
@@ -52,11 +72,11 @@ class ViewController: UIViewController {
          }
          
          let cancelAction = UIAlertAction(title: "취소", style: .default)
-         let okAction = UIAlertAction(title: "추가", style: .default, handler: {ACTION in
+       let okAction = UIAlertAction(title: "추가", style: .default, handler: { [self]ACTION in
              
              let todoListDB = TodoListDB()
            let result = todoListDB.insertDB(title: addAlert.textFields![0].text!)
-          
+           self.readValue()
              // Alert
                   if result{
                       let resultAlert = UIAlertController(title: "결과", message: "입력 되었습니다.", preferredStyle: .alert)
@@ -100,11 +120,29 @@ extension ViewController: UITableViewDataSource
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "myCell", for: indexPath)
         var content = cell.defaultContentConfiguration()
-       content.text =  ListData[indexPath.row].title
-
-        content.image  = UIImage(systemName: "pencil.circle")
+        content.text =  ListData[indexPath.row].title
         
-           return cell
+        content.image  = UIImage(systemName: "pencil.circle")
+        cell.contentConfiguration = content
+        
+        return cell
+    }
+    func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
+        if editingStyle == .delete {
+            let todoListDB = TodoListDB()
+            _ = todoListDB.DeleteDB(id: ListData[indexPath.row].id)
+            ListData.remove(at: indexPath.row)
+            // Delete the row from the data source
+            
+            
+            tableView.deleteRows(at: [indexPath], with: .fade)
+        } else if editingStyle == .insert {
+            // Create a new instance of the appropriate class, insert it into the array, and add a new row to the table view
+            
+        }
+    }
+    func tableView(_ tableView: UITableView, titleForDeleteConfirmationButtonForRowAt indexPath: IndexPath) -> String? {
+        return "삭제"
     }
 }
     

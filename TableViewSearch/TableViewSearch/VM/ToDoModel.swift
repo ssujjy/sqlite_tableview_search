@@ -26,7 +26,7 @@ class TodoListDB{
         }
         // Table 만들기
         if sqlite3_exec(db, "CREATE TABLE If NOT EXISTS todolist (id integer primary key autoincrement, title text)", nil, nil, nil) != SQLITE_OK{
-                let errMsg = String(cString: sqlite3_errmsg(db)!)
+            let errMsg = String(cString: sqlite3_errmsg(db)!)
             print("테이블 생성 오류: \(errMsg)")
         }
     }
@@ -36,16 +36,16 @@ class TodoListDB{
         
         if sqlite3_prepare(db, queryString, -1, &stmt, nil) != SQLITE_OK{
             let errMsg = String(cString: sqlite3_errmsg(db)!)
-        print("셀렉트중 에러: \(errMsg)")
+            print("셀렉트중 에러: \(errMsg)")
         }
         while(sqlite3_step(stmt) == SQLITE_ROW){
             let id = Int(sqlite3_column_int(stmt, 0))
             let title = String(cString: sqlite3_column_text(stmt, 1))
-     
+            
             todoList.append(SaveData(id: id, title: title))
             print("어팬드 했다 ")
             print(id, title)
-      
+            
         }
         delegate.itemDownloaded(items: todoList)
     }
@@ -58,7 +58,7 @@ class TodoListDB{
         sqlite3_prepare(db, queryString, -1, &stmt, nil)
         
         sqlite3_bind_text(stmt, 1, title, -1, SQLITE_TRANSIENT)
-    
+        
         print("인서트 했다 ")
         if sqlite3_step(stmt) == SQLITE_DONE{
             return true
@@ -66,24 +66,61 @@ class TodoListDB{
             return false
         }
     }
-
-//    func DeleteDB(id: Int) -> Bool{
-//        var stmt: OpaquePointer?
-//            let queryString = "delete from todolist where id=?"
-//        let SQLITE_TRANSIENT = unsafeBitCast(-1, to: sqlite3_destructor_type.self)
-//        sqlite3_prepare(db, queryString, -1, &stmt, nil)
-//        sqlite3_bind_int(stmt, 1, Int32(id))
-//
-//        //sqlite3_bind_text(stmt, 1, title, -1, SQLITE_TRANSIENT)
-//
-//        if sqlite3_step(stmt) == SQLITE_DONE{
-//            return true
-//        }else{
-//            return false
-//        }
-//    }
     
-    
-}
+    func findkeyword(what: String) {
+        var stmt: OpaquePointer?
+        let queryString = "SELECT * FROM todolist WHERE title LIKE ?;"
+        let SQLITE_TRANSIENT = unsafeBitCast(-1, to: sqlite3_destructor_type.self)
+        if sqlite3_prepare(db, queryString, -1, &stmt, nil) != SQLITE_OK {
+            let errMsg = String(cString: sqlite3_errmsg(db)!)
+            print("셀렉트중 에러: \(errMsg)")
+            return
+        }
+        
+        // '%'로 감싼 문자열을 생성하여 바인딩
+        let likeString = "%\(what)%"
+        if sqlite3_bind_text(stmt, 1, likeString, -1, SQLITE_TRANSIENT) != SQLITE_OK {
+            let errMsg = String(cString: sqlite3_errmsg(db)!)
+            print("바인딩중 에러: \(errMsg)")
+            sqlite3_finalize(stmt)
+            return
+        }
+        
+        // 쿼리 실행
+        while sqlite3_step(stmt) == SQLITE_ROW {
+            let id = Int(sqlite3_column_int(stmt, 0))
+            let title = String(cString: sqlite3_column_text(stmt, 1))
+            
+            todoList.append(SaveData(id: id, title: title))
+            print("어팬드 했다 ")
+            print(id, title)
+        }
+        
+        // statement 해제
+        sqlite3_finalize(stmt)
+        
+        delegate.itemDownloaded(items: todoList)
+    }
+        
+        
+        
+        
+        
+            func DeleteDB(id: Int) -> Bool{
+                var stmt: OpaquePointer?
+                    let queryString = "delete from todolist where id=?"
+                let SQLITE_TRANSIENT = unsafeBitCast(-1, to: sqlite3_destructor_type.self)
+                sqlite3_prepare(db, queryString, -1, &stmt, nil)
+                sqlite3_bind_int(stmt, 1, Int32(id))
+        
+                if sqlite3_step(stmt) == SQLITE_DONE{
+                    return true
+                }else{
+                    return false
+                }
+            }
+        
+        
+    }
 
 
