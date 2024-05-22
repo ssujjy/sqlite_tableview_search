@@ -1,8 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="21701" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="sLb-Ad-VHk">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="32700.99.1234" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="sLb-Ad-VHk">
     <device id="retina6_12" orientation="portrait" appearance="light"/>
     <dependencies>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="21678"/>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="22685"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="System colors in document resources" minToolsVersion="11.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
@@ -25,23 +26,16 @@
                                     <action selector="btnAdd:" destination="sLb-Ad-VHk" eventType="touchUpInside" id="Dne-C6-Vf8"/>
                                 </connections>
                             </button>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="0CJ-Tx-hiP">
-                                <rect key="frame" x="27" y="60" width="54" height="35"/>
-                                <state key="normal" title="Button"/>
-                                <buttonConfiguration key="configuration" style="plain" title="Edit"/>
-                                <connections>
-                                    <action selector="btnUpdate:" destination="sLb-Ad-VHk" eventType="touchUpInside" id="E7D-jn-UGy"/>
-                                </connections>
-                            </button>
-                            <tableView clipsSubviews="YES" contentMode="scaleAspectFit" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="-1" estimatedSectionHeaderHeight="-1" sectionFooterHeight="-1" estimatedSectionFooterHeight="-1" translatesAutoresizingMaskIntoConstraints="NO" id="F0D-xi-Tbw">
+                            <tableView clipsSubviews="YES" contentMode="scaleAspectFit" fixedFrame="YES" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="-1" estimatedSectionHeaderHeight="-1" sectionFooterHeight="-1" estimatedSectionFooterHeight="-1" translatesAutoresizingMaskIntoConstraints="NO" id="F0D-xi-Tbw">
                                 <rect key="frame" x="16" y="103" width="361" height="715"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                                 <prototypes>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleAspectFit" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="myCell" id="cIi-G6-6ru">
-                                        <rect key="frame" x="0.0" y="50" width="361" height="43.666667938232422"/>
+                                        <rect key="frame" x="0.0" y="50" width="361" height="44.666667938232422"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="cIi-G6-6ru" id="UUQ-Ig-fhu">
-                                            <rect key="frame" x="0.0" y="0.0" width="361" height="43.666667938232422"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="361" height="44.666667938232422"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                         </tableViewCellContentView>
                                     </tableViewCell>
@@ -52,15 +46,7 @@
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                         <constraints>
                             <constraint firstItem="6St-HR-Kp3" firstAttribute="trailing" secondItem="Zf5-lh-jLh" secondAttribute="trailing" constant="16" id="6f5-DC-486"/>
-                            <constraint firstItem="6St-HR-Kp3" firstAttribute="trailing" secondItem="F0D-xi-Tbw" secondAttribute="trailing" constant="16" id="F8f-u1-dfw"/>
-                            <constraint firstItem="Zf5-lh-jLh" firstAttribute="leading" secondItem="0CJ-Tx-hiP" secondAttribute="trailing" constant="265" id="HXB-1m-nBZ"/>
-                            <constraint firstItem="0CJ-Tx-hiP" firstAttribute="top" secondItem="6St-HR-Kp3" secondAttribute="top" constant="1" id="LcR-gC-eN0"/>
-                            <constraint firstItem="6St-HR-Kp3" firstAttribute="bottom" secondItem="0CJ-Tx-hiP" secondAttribute="bottom" constant="723" id="RzB-73-BK1"/>
-                            <constraint firstItem="0CJ-Tx-hiP" firstAttribute="leading" secondItem="6St-HR-Kp3" secondAttribute="leading" constant="27" id="at4-LH-vhi"/>
                             <constraint firstItem="Zf5-lh-jLh" firstAttribute="top" secondItem="6St-HR-Kp3" secondAttribute="top" id="evZ-01-gXg"/>
-                            <constraint firstItem="F0D-xi-Tbw" firstAttribute="leading" secondItem="6St-HR-Kp3" secondAttribute="leading" constant="16" id="jYO-vG-dGb"/>
-                            <constraint firstItem="F0D-xi-Tbw" firstAttribute="bottom" secondItem="6St-HR-Kp3" secondAttribute="bottom" id="jZB-IY-8qU"/>
-                            <constraint firstItem="F0D-xi-Tbw" firstAttribute="top" secondItem="0CJ-Tx-hiP" secondAttribute="bottom" constant="8" symbolic="YES" id="qMe-hu-w1H"/>
                             <constraint firstItem="6St-HR-Kp3" firstAttribute="bottom" secondItem="Zf5-lh-jLh" secondAttribute="bottom" constant="712" id="r8o-Nk-XiP"/>
                             <constraint firstItem="Zf5-lh-jLh" firstAttribute="leading" secondItem="6St-HR-Kp3" secondAttribute="leading" constant="346" id="z0Z-cU-5Oc"/>
                         </constraints>
