@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="32700.99.1234" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="sLb-Ad-VHk">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="32700.99.1234" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="m0B-sq-yM1">
     <device id="retina6_12" orientation="portrait" appearance="light"/>
     <dependencies>
         <deployment identifier="iOS"/>
@@ -17,15 +17,6 @@
                         <rect key="frame" x="0.0" y="0.0" width="393" height="852"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <button opaque="NO" contentMode="scaleAspectFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Zf5-lh-jLh">
-                                <rect key="frame" x="346" y="59" width="31" height="47"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="10"/>
-                                <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
-                                <state key="normal" image="plus" catalog="system"/>
-                                <connections>
-                                    <action selector="btnAdd:" destination="sLb-Ad-VHk" eventType="touchUpInside" id="Dne-C6-Vf8"/>
-                                </connections>
-                            </button>
                             <tableView clipsSubviews="YES" contentMode="scaleAspectFit" fixedFrame="YES" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="-1" estimatedSectionHeaderHeight="-1" sectionFooterHeight="-1" estimatedSectionFooterHeight="-1" translatesAutoresizingMaskIntoConstraints="NO" id="F0D-xi-Tbw">
                                 <rect key="frame" x="16" y="103" width="361" height="715"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
@@ -44,24 +35,42 @@
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="6St-HR-Kp3"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
-                        <constraints>
-                            <constraint firstItem="6St-HR-Kp3" firstAttribute="trailing" secondItem="Zf5-lh-jLh" secondAttribute="trailing" constant="16" id="6f5-DC-486"/>
-                            <constraint firstItem="Zf5-lh-jLh" firstAttribute="top" secondItem="6St-HR-Kp3" secondAttribute="top" id="evZ-01-gXg"/>
-                            <constraint firstItem="6St-HR-Kp3" firstAttribute="bottom" secondItem="Zf5-lh-jLh" secondAttribute="bottom" constant="712" id="r8o-Nk-XiP"/>
-                            <constraint firstItem="Zf5-lh-jLh" firstAttribute="leading" secondItem="6St-HR-Kp3" secondAttribute="leading" constant="346" id="z0Z-cU-5Oc"/>
-                        </constraints>
                     </view>
+                    <navigationItem key="navigationItem" id="d47-Hc-I8u">
+                        <barButtonItem key="rightBarButtonItem" systemItem="add" id="X15-dT-Zxl">
+                            <connections>
+                                <action selector="btnAdd:" destination="sLb-Ad-VHk" id="hYF-LC-Bct"/>
+                            </connections>
+                        </barButtonItem>
+                    </navigationItem>
                     <connections>
                         <outlet property="tvMyList" destination="F0D-xi-Tbw" id="yem-yT-0Zv"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="1qJ-bN-qA6" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
+            <point key="canvasLocation" x="2060.3053435114502" y="-217.60563380281693"/>
+        </scene>
+        <!--Navigation Controller-->
+        <scene sceneID="X5r-PJ-hyK">
+            <objects>
+                <navigationController automaticallyAdjustsScrollViewInsets="NO" id="m0B-sq-yM1" sceneMemberID="viewController">
+                    <toolbarItems/>
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="NJ5-ew-jGn">
+                        <rect key="frame" x="0.0" y="59" width="393" height="44"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                    </navigationBar>
+                    <nil name="viewControllers"/>
+                    <connections>
+                        <segue destination="sLb-Ad-VHk" kind="relationship" relationship="rootViewController" id="a3N-HS-OqQ"/>
+                    </connections>
+                </navigationController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="mDe-D8-177" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
             <point key="canvasLocation" x="1133.5877862595419" y="-217.60563380281693"/>
         </scene>
     </scenes>
     <resources>
-        <image name="plus" catalog="system" width="128" height="113"/>
         <systemColor name="systemBackgroundColor">
             <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
         </systemColor>

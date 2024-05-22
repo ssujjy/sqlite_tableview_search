@@ -11,11 +11,13 @@ struct SaveData{
     var id: Int
     var title: String
     var state: String
+    var order: Int
     
-    init(id: Int, title: String, state: String) {
+    init(id: Int, title: String, state: String, order: Int) {
         self.id = id
         self.title = title
         self.state = state
+        self.order = order
     }
     
 }
