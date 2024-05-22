@@ -108,8 +108,8 @@ class TodoListDB{
         let queryString = "update mytodolist set state=? where id=?"
         sqlite3_prepare(db, queryString, -1, &stmt, nil)
        
-        sqlite3_bind_text(stmt, 2, state, -1, SQLITE_TRANSIENT)
-        sqlite3_bind_int(stmt, 1, Int32(id))
+        sqlite3_bind_text(stmt, 1, state, -1, SQLITE_TRANSIENT)
+        sqlite3_bind_int(stmt, 2, Int32(id))
         
         if sqlite3_step(stmt) == SQLITE_DONE{
             return true

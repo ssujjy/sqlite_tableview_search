@@ -10,6 +10,7 @@ import UIKit
 class ViewController: UIViewController {
     //MARK: Property
     @IBOutlet weak var tvMyList: UITableView!
+    @IBOutlet weak var btnFix: UIButton!
     // 사용할 배열 정의
     var ListData: [SaveData] = []
     // 메세지 함수에서 사용하는 변수
@@ -24,6 +25,7 @@ class ViewController: UIViewController {
     var item = ""
     var id = 0
     var indexNum = 0
+    var whatState = ""
     
     //MARK: ViewdidLoad
     override func viewDidLoad() {
@@ -34,7 +36,8 @@ class ViewController: UIViewController {
         
         tvMyList.delegate = self
         tvMyList.dataSource = self
-    
+        
+        self.navigationItem.leftBarButtonItem = self.editButtonItem
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -51,9 +54,7 @@ class ViewController: UIViewController {
         
       }
     
-    @IBAction func btnUpdate(_ sender: UIButton) {
-       
-    }
+
     
     @IBAction func btnAdd(_ sender: UIButton) {
         GoMessage("입력",nil)
@@ -65,17 +66,18 @@ class ViewController: UIViewController {
         switch what{
         case "입력":
             whatMessage = "입력할 내용을 입력하세요!"
+            item = ""
         case "수정":
             whatMessage = "수정할 내용을 입력하세요!"
         case "완료":
             whatMessage = "해당 항목을 작업 완료로 설정 하시겠습니까?"
         default:
-            whatMessage = "입력할 내용을 입력하세요!"
+            whatMessage = "내용을 입력하세요!"
         }
            let Alert = UIAlertController(title: "Todo List", message: whatMessage , preferredStyle: .alert)
         
         Alert.addTextField{ [self]ACTION in
-                 ACTION.placeholder = whatMessage
+           ACTION.placeholder = whatMessage
             if index == nil{
                 ACTION.isUserInteractionEnabled = true
                 ACTION.text = item
@@ -106,14 +108,11 @@ class ViewController: UIViewController {
                    getResult = result
                    self.readValue()
                case "완료":
-                   let result = todoListDB.UpdateState(id: self.ListData[index!.row].id, state: "off")
+                   whatState = "off"
+                   print("가져온 아이디와 상태", ListData[index!.row].id, ListData[index!.row].state)
+                   let result = todoListDB.UpdateState(id: ListData[index!.row].id, state: whatState)
                    getResult = result
                    self.readValue()
-//                   if let cell = tvMyList.cellForRow(at: index!) {
-//                            cell.isUserInteractionEnabled = false // 셀을 클릭 불가능하게 설정
-//                       //cell.image = UIImage(systemName: "checkmark.circle")// 이미지 변경
-//                        }
-                   //self.readValue()
                default:
                    return
                }
@@ -164,9 +163,6 @@ extension ViewController: UITableViewDelegate {
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
             // 셀이 클릭되었을 때의 동작 정의
-
-     
-        
         item = ListData[indexPath.row].title
         id = ListData[indexPath.row].id
             print("Selected item: \(item)")
@@ -178,13 +174,20 @@ extension ViewController: UITableViewDelegate {
 //MARK: Cell 에 데이터 넣기
 extension ViewController: UITableViewDataSource
 {
+    
+    func tableView(_ tableView: UITableView, canMoveRowAt indexPath: IndexPath) -> Bool {
+          return true
+      }
+    
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "myCell", for: indexPath)
         var content = cell.defaultContentConfiguration()
         content.text =  ListData[indexPath.row].title
-    
+        
         cell.isUserInteractionEnabled =  ListData[indexPath.row].state == "on" ?  true : false
-        content.image  = UIImage(systemName: "pencil.circle")
+        
+        print("완료 상태" , ListData[indexPath.row].state)
+        content.image  = ListData[indexPath.row].state == "on" ? UIImage(systemName: "pencil.circle") : UIImage(systemName: "checkmark")
         
         // return 이 cell 임으로 content 를 cell 로 지정
         cell.contentConfiguration = content
@@ -192,15 +195,6 @@ extension ViewController: UITableViewDataSource
         return cell
     }
     
-    @objc func handleLongPress(_ gestureRecognizer: UILongPressGestureRecognizer) {
-        if gestureRecognizer.state == .began {
-            let location = gestureRecognizer.location(in: tvMyList)
-            if let indexPath = tvMyList.indexPathForRow(at: location){
-                
-                
-                GoMessage("완료",indexPath)
-            }
-        }
         //MARK: CellDelete
         func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
             if editingStyle == .delete {
@@ -209,11 +203,10 @@ extension ViewController: UITableViewDataSource
                 ListData.remove(at: indexPath.row)
                 // Delete the row from the data source
                 
-                
                 tableView.deleteRows(at: [indexPath], with: .fade)
             } else if editingStyle == .insert {
                 // Create a new instance of the appropriate class, insert it into the array, and add a new row to the table view
-                
+                    
             }
         }
         
@@ -221,9 +214,26 @@ extension ViewController: UITableViewDataSource
         func tableView(_ tableView: UITableView, titleForDeleteConfirmationButtonForRowAt indexPath: IndexPath) -> String? {
             return "삭제"
         }
+        func tableView(_ tableView: UITableView, moveRowAt fromIndexPath: IndexPath, to: IndexPath){
+            let itmeToMove = ListData[fromIndexPath.row]
+            
+            ListData.remove(at: fromIndexPath.row)
+            
+            ListData.insert(itmeToMove, at: to.row)
+        }
     }
-    
-    
+
+
+extension ViewController{
+    @objc func handleLongPress(_ gestureRecognizer: UILongPressGestureRecognizer) {
+        if gestureRecognizer.state == .began {
+            let location = gestureRecognizer.location(in: tvMyList)
+            if let indexPath = tvMyList.indexPathForRow(at: location){
+                
+                GoMessage("완료",indexPath)
+            }
+        }
+}
 }
 // MARK: DB프로토콜 익스텐션
 extension ViewController: QueryModelProtocol{
